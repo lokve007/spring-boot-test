@@ -27,3 +27,8 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+task printJavaVersion {
+    doLast {
+        println "Java used by Gradle: ${System.getProperty('java.version')}"
+    }
+}
