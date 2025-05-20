@@ -1,4 +1,5 @@
-FROM openjdk:17-jdk-slim
+# Use JDK 21 instead of 17
+FROM eclipse-temurin:21-jdk-jammy
 
 VOLUME /tmp
 
