@@ -1,8 +1,11 @@
-# Use JDK 21 instead of 17
-FROM eclipse-temurin:21-jdk-jammy
+# Build stage
+FROM eclipse-temurin:21-jdk as builder
+WORKDIR /app
+COPY . .
+RUN ./gradlew clean bootJar
 
-VOLUME /tmp
-
-COPY build/libs/demo-0.0.1-SNAPSHOT.jar app.jar
-
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+# Run stage
+FROM eclipse-temurin:21-jre
+WORKDIR /app
+COPY --from=builder /app/build/libs/*.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
